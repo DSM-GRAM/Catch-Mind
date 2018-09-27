@@ -19,7 +19,7 @@
         android:layout_height="160dp" />
 
     <TextView
-        android:fontFamily="@font/NanumSquareBold"
+        android:fontFamily="@font/nanumsquarebold"
         app:layout_constraintTop_toBottomOf="@+id/logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
