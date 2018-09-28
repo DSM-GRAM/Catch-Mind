@@ -1,4 +1,4 @@
-package com.catch_mind.gram2018.catch_mind_android
+package com.jinwoo.catch_mind
 
 import org.junit.Test
 

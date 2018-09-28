@@ -1,4 +1,4 @@
-package com.catch_mind.gram2018.catch_mind_android
+package com.jinwoo.catch_mind
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.catch_mind.gram2018.catch_mind_android", appContext.packageName)
+        assertEquals("com.jinwoo.catch_mind", appContext.packageName)
     }
 }
