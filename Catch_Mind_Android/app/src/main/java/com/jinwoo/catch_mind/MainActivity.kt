@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var gray_color: View
     lateinit var amethyst_color: View
 
+    lateinit var drawClass: DrawClass
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,18 +56,18 @@ class MainActivity : AppCompatActivity() {
 
         socket.on(Socket.EVENT_CONNECT, onConnect)
 
-        red_color.setOnClickListener { v -> }
-        pink_color.setOnClickListener { v -> }
-        orange_color.setOnClickListener { v -> }
-        yellow_color.setOnClickListener { v -> }
-        green_color.setOnClickListener { v -> }
-        yellow_green_color.setOnClickListener { v -> }
-        sky_color.setOnClickListener { v -> }
-        black_color.setOnClickListener { v -> }
-        purple_color.setOnClickListener { v -> }
-        light_purple_color.setOnClickListener { v -> }
-        gray_color.setOnClickListener { v -> }
-        amethyst_color.setOnClickListener { v -> }
+        red_color.setOnClickListener { v -> drawClass = DrawClass(this, ) }
+        pink_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
+        orange_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
+        yellow_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
+        green_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
+        yellow_green_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
+        sky_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
+        black_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
+        purple_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
+        light_purple_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
+        gray_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
+        amethyst_color.setOnClickListener { v -> drawClass = DrawClass(this, )}
 
 
 
