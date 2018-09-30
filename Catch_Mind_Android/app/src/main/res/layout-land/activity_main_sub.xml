@@ -67,7 +67,7 @@
                 android:elevation="30dp"
                 android:padding="5dp">
                 <ImageView
-                    android:layout_marginRight="5dp"
+                    android:layout_marginHorizontal="5dp"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/score"/>
@@ -75,7 +75,7 @@
                     android:id="@+id/myscore"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
-                    android:text="20dp"
+                    android:text="20"
                     android:textSize="14dp"
                     android:textStyle="bold"
                     android:textColor="#648CBA"
@@ -94,7 +94,7 @@
                 android:elevation="30dp"
                 android:padding="5dp">
                 <ImageView
-                    android:layout_marginRight="5dp"
+                    android:layout_marginHorizontal="5dp"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/score"/>
@@ -102,7 +102,7 @@
                     android:id="@+id/otherscore"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
-                    android:text="20dp"
+                    android:text="20"
                     android:textSize="14dp"
                     android:textStyle="bold"
                     android:textColor="#648CBA"
@@ -204,7 +204,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/round_word_blue"
         android:elevation="30dp"
-        android:padding="10dp">
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="15dp">
 
         <TextView
             android:id="@+id/word"
