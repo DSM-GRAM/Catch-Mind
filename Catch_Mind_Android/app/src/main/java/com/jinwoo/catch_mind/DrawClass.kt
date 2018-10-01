@@ -4,8 +4,11 @@ import android.content.Context
 import android.graphics.*
 import android.view.MotionEvent
 import android.view.View
+import io.socket.client.Socket
 
 class DrawClass(context: Context, paintColor: Long) : View(context){
+
+    private var socket: Socket
     lateinit var drawPath: Path
     lateinit var drawPaint: Paint
     lateinit var canvasPaint: Paint
@@ -13,8 +16,11 @@ class DrawClass(context: Context, paintColor: Long) : View(context){
     lateinit var drawCanvas: Canvas
     lateinit var canvasBitmap: Bitmap
 
-     init {
-         this.paintColor = paintColor
+
+    init {
+        socket = SocketApplication.get()
+        socket.connect()
+        this.paintColor = paintColor
         setupDrawing()
     }
 
@@ -49,12 +55,19 @@ class DrawClass(context: Context, paintColor: Long) : View(context){
 
         when (event.getAction()) {
 
-            MotionEvent.ACTION_DOWN -> drawPath.moveTo(touchX, touchY)
+            MotionEvent.ACTION_DOWN -> {
+                drawPath.moveTo(touchX, touchY)
+                socket.emit("Action down location", touchX, touchY)
+            }
 
-            MotionEvent.ACTION_MOVE -> drawPath.lineTo(touchX, touchY)
+            MotionEvent.ACTION_MOVE -> {
+                drawPath.lineTo(touchX, touchY)
+                socket.emit("Action move location", touchX, touchY)
+            }
 
             MotionEvent.ACTION_UP -> {
                 drawPath.lineTo(touchX, touchY)
+                socket.emit("Action up location", touchX, touchY)
                 drawCanvas.drawPath(drawPath, drawPaint)
                 drawPath.reset()
             }
