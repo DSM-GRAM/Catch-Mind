@@ -1,9 +1,10 @@
-package com.jinwoo.catch_mind
+package com.jinwoo.catch_mind.Activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
+import com.jinwoo.catch_mind.R
 
 class StartActivity : AppCompatActivity() {
 

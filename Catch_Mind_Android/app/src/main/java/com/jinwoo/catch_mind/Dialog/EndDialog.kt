@@ -1,8 +1,9 @@
-package com.jinwoo.catch_mind
+package com.jinwoo.catch_mind.Dialog
 
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import com.jinwoo.catch_mind.R
 import kotlinx.android.synthetic.main.gg_dialog.*
 
 class EndDialog(context: Context, result_text1: String, result_text2: String, result_text3: String): Dialog(context) {

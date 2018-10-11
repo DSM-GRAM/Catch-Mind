@@ -9,12 +9,13 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="40dp"
+        android:layout_marginVertical="30dp"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/round_white">
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/drawlayout"
             android:background="@drawable/round_white"
-            android:elevation="30dp"
+            android:elevation="10dp"
             android:layout_width="330dp"
             android:layout_height="match_parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -23,9 +24,9 @@
             android:layout_marginBottom="20dp"
             android:layout_marginHorizontal="10dp">
 
-        </LinearLayout>
+        </FrameLayout>
         <android.support.constraint.ConstraintLayout
-            android:elevation="30dp"
+            android:elevation="10dp"
             android:id="@+id/info_layout"
             android:layout_width="200dp"
             android:layout_height="match_parent"
@@ -42,9 +43,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_white"
-                android:elevation="30dp"
+                android:elevation="10dp"
                 android:padding="3dp">
                 <TextView
+                    android:id="@+id/round"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="ROUND 3"
@@ -52,7 +54,7 @@
                     android:textStyle="bold"
                     android:textColor="#648CBA"
                     android:fontFamily="@font/nanumsquarebold"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center"/>
             </LinearLayout>
 
             <LinearLayout
@@ -61,26 +63,28 @@
                 app:layout_constraintRight_toLeftOf="@id/otherscore_layout"
                 android:id="@+id/myscore_layout"
                 android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_white"
-                android:elevation="30dp"
+                android:elevation="10dp"
                 android:padding="5dp">
                 <ImageView
                     android:layout_marginHorizontal="5dp"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@drawable/score"/>
+                    android:background="@drawable/score" />
                 <TextView
+                    android:layout_marginLeft="5dp"
                     android:id="@+id/myscore"
-                    android:layout_width="50dp"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:text="20"
                     android:textSize="14dp"
                     android:textStyle="bold"
                     android:textColor="#648CBA"
                     android:fontFamily="@font/nanumsquarebold"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center"/>
             </LinearLayout>
             <LinearLayout
                 app:layout_constraintLeft_toRightOf="@id/myscore_layout"
@@ -91,43 +95,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_white"
-                android:elevation="30dp"
-                android:padding="5dp">
+                android:elevation="10dp"
+                android:padding="5dp"
+                android:layout_marginTop="10dp">
                 <ImageView
                     android:layout_marginHorizontal="5dp"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/score"/>
                 <TextView
+                    android:layout_marginLeft="5dp"
                     android:id="@+id/otherscore"
-                    android:layout_width="50dp"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:text="20"
                     android:textSize="14dp"
                     android:textStyle="bold"
                     android:textColor="#648CBA"
                     android:fontFamily="@font/nanumsquarebold"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center"/>
             </LinearLayout>
             <ImageView
                 android:id="@+id/logo2"
                 android:layout_margin="10dp"
                 android:background="@drawable/logo2"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
+                android:layout_width="110dp"
+                android:layout_height="70dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/myscore_layout"/>
 
             <LinearLayout
-                android:elevation="30dp"
+                android:layout_margin="5dp"
+                android:elevation="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_white"
                 app:layout_constraintTop_toBottomOf="@id/logo2"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                tools:layout_editor_absoluteX="10dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent">
 
@@ -171,12 +177,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/timer_layout"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/round_white"
-        android:elevation="30dp"
+        android:elevation="10dp"
         android:padding="10dp">
         <ImageView
             android:layout_marginRight="5dp"
@@ -199,11 +205,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/word_layout"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/round_word_blue"
-        android:elevation="30dp"
+        android:elevation="10dp"
         android:paddingVertical="8dp"
         android:paddingHorizontal="15dp">
 

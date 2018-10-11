@@ -1,4 +1,4 @@
-package com.jinwoo.catch_mind
+package com.jinwoo.catch_mind.Application
 
 import android.app.Application
 import io.socket.client.IO
