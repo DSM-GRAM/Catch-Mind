@@ -7,34 +7,31 @@ import android.view.View
 import android.graphics.Bitmap
 
 
-
 class DrawClass(context: Context) : View(context) {
 
+    val paintColor: Int = -0x1000000
+    var touchX = 0f
+    var touchY = 0f
 
-    var touchX: Float = 0.0f
-    var touchY: Float = 0.0f
-    var paintColor: Int = 0x000000
-
-    private lateinit var drawPath: Path
-    private lateinit var drawPaint: Paint
-    private lateinit var canvasPaint: Paint
-    private lateinit var drawCanvas: Canvas
-    private lateinit var canvasBitmap: Bitmap
+    var drawPath: Path? = Path()
+    var drawPaint: Paint? = Paint()
+    var canvasPaint: Paint? = null
+    var drawCanvas: Canvas? = null
+    var canvasBitmap: Bitmap? = null
 
     init {
         setupDrawing()
     }
 
-    private fun setupDrawing() {
+    fun setColor(color: Int){ drawPaint!!.color = color }
 
-        drawPath = Path()
-        drawPaint = Paint()
-        drawPaint.color = paintColor
-        drawPaint.isAntiAlias = true
-        drawPaint.setStrokeWidth(50F)
-        drawPaint.style = Paint.Style.STROKE
-        drawPaint.strokeJoin = Paint.Join.ROUND
-        drawPaint.strokeCap = Paint.Cap.ROUND
+    fun setupDrawing() {
+        drawPaint!!.color = paintColor
+        drawPaint!!.isAntiAlias = true
+        drawPaint!!.strokeWidth = 5f
+        drawPaint!!.style = Paint.Style.STROKE
+        drawPaint!!.strokeJoin = Paint.Join.ROUND
+        drawPaint!!.strokeCap = Paint.Cap.ROUND
         canvasPaint = Paint(Paint.DITHER_FLAG)
     }
 
@@ -46,7 +43,7 @@ class DrawClass(context: Context) : View(context) {
 
     override fun onDraw(canvas: Canvas) {
 
-        canvas.drawBitmap(canvasBitmap, 0.toFloat(), 0.toFloat(), canvasPaint)
+        canvas.drawBitmap(canvasBitmap, 0f, 0f, canvasPaint)
         canvas.drawPath(drawPath, drawPaint)
     }
 
@@ -54,13 +51,13 @@ class DrawClass(context: Context) : View(context) {
         touchX = event.x
         touchY = event.y
 
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> drawPath.moveTo(touchX, touchY)
-            MotionEvent.ACTION_MOVE -> drawPath.lineTo(touchX, touchY)
+        when (event.getAction()) {
+            MotionEvent.ACTION_DOWN -> drawPath!!.moveTo(touchX, touchY)
+            MotionEvent.ACTION_MOVE -> drawPath!!.lineTo(touchX, touchY)
             MotionEvent.ACTION_UP -> {
-                drawPath.lineTo(touchX, touchY)
-                drawCanvas.drawPath(drawPath, drawPaint)
-                drawPath.reset()
+                drawPath!!.lineTo(touchX, touchY)
+                drawCanvas!!.drawPath(drawPath, drawPaint)
+                drawPath!!.reset()
             }
             else -> return false
         }

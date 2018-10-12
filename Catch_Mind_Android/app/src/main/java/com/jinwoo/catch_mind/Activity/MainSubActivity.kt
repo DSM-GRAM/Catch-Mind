@@ -2,9 +2,8 @@ package com.jinwoo.catch_mind.Activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.IntegerRes
 import android.support.v7.app.AppCompatActivity
-import android.view.View
+import android.widget.Toast
 import com.jinwoo.catch_mind.Application.SocketApplication
 import com.jinwoo.catch_mind.Dialog.EndDialog
 import com.jinwoo.catch_mind.DrawClass
@@ -24,8 +23,8 @@ class MainSubActivity : AppCompatActivity() {
     var SettingData = SettingModel()
 
     lateinit var answer: String
-    var timeCounter = 0
-    var timeMinute = 3
+    var timeCounter = 30
+    var timeMinute = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +54,7 @@ class MainSubActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+            Toast.makeText(applicationContext, "오답이네요!", Toast.LENGTH_SHORT).show()
         }
 
         if(SettingData.round > 5) {
@@ -66,6 +66,11 @@ class MainSubActivity : AppCompatActivity() {
                 result("DRAW!")
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        socket.disconnect();
     }
 
     fun setData(){
@@ -104,14 +109,14 @@ class MainSubActivity : AppCompatActivity() {
 
     var color = Emitter.Listener{ args ->
         Thread {
-            drawClass.paintColor = args[0].toString().toInt()
+            drawClass.drawPaint!!.color = args[0].toString().toInt()
         }
     }
 
     var location = Emitter.Listener { args ->
         runOnUiThread{
             drawClass.touchX = args[0].toString().toFloat()
-            drawClass.touchY = args[0].toString().toFloat()
+            drawClass.touchY= args[0].toString().toFloat()
         }
     }
 

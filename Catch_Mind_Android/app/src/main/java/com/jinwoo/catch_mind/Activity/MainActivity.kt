@@ -3,6 +3,7 @@ package com.jinwoo.catch_mind.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.jinwoo.catch_mind.*
 import com.jinwoo.catch_mind.Application.SocketApplication
 import com.jinwoo.catch_mind.Dialog.EndDialog
@@ -13,6 +14,11 @@ import java.util.*
 import kotlin.concurrent.schedule
 import kotlinx.android.synthetic.main.activity_main.*
 
+
+
+
+
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var socket : Socket
@@ -21,8 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     var SettingData = SettingModel()
 
-    var timeCounter = 0
-    var timeMinute = 3
+    var timeCounter = 30
+    var timeMinute = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         setData()
 
-        red_color.setOnClickListener { v -> colorClick(0xFF8585) }
+        red_color.setOnClickListener { v -> colorClick(0xFF8585)}
         pink_color.setOnClickListener { v -> colorClick(0xFF98C8) }
         orange_color.setOnClickListener { v -> colorClick(0xFFCE85) }
         yellow_color.setOnClickListener { v -> colorClick(0xFBFB8E) }
@@ -66,15 +72,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        socket.disconnect();
+    }
+
     fun setData(){
         round.setText("ROUND ${SettingData.round}")
         myscore.setText(SettingData.myscore.toString())
         otherscore.setText(SettingData.otherscore.toString())
     }
 
-    fun colorClick(color: Long) {
+    fun colorClick(color: Int) {
+        Log.e("선택", "레드!!!!")
         socket.emit("color", color)
-        drawClass.paintColor = color.toInt()
+        drawClass.setColor(color)
     }
 
     fun timerStart(){
@@ -121,4 +133,6 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
 }
