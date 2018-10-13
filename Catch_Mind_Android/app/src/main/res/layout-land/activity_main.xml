@@ -299,4 +299,18 @@
             android:fontFamily="@font/nanumsquarebold"
             android:gravity="center_horizontal"/>
     </LinearLayout>
+
+    <Button
+        android:fontFamily="@font/nanumsquarebold"
+        android:textSize="18dp"
+        android:text="지우개"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="70dp"
+        android:elevation="10dp"
+        android:id="@+id/eraser"
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:background="@drawable/round_white"/>
 </android.support.constraint.ConstraintLayout>

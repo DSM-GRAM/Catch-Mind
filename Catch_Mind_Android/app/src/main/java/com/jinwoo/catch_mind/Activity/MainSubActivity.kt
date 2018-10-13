@@ -3,8 +3,10 @@ package com.jinwoo.catch_mind.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
 import com.jinwoo.catch_mind.Application.SocketApplication
+import com.jinwoo.catch_mind.AutoDrawClass
 import com.jinwoo.catch_mind.Dialog.EndDialog
 import com.jinwoo.catch_mind.DrawClass
 import com.jinwoo.catch_mind.Model.SettingModel
@@ -18,20 +20,22 @@ import kotlin.concurrent.schedule
 class MainSubActivity : AppCompatActivity() {
     private lateinit var socket : Socket
 
-    lateinit var drawClass: DrawClass
+    lateinit var AutodrawClass: AutoDrawClass
 
-    var SettingData = SettingModel()
+    var SettingData = SettingModel
 
-    lateinit var answer: String
-    var timeCounter = 30
-    var timeMinute = 1
+    var answer: String = "개구리"
+    var timeCounter = 10
+    var timeMinute = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_sub)
 
-        drawClass = DrawClass(this)
-        drawlayout.addView(drawClass)
+        Log.e("라운드 데이터", "${SettingData.round}")
+
+        AutodrawClass = AutoDrawClass(this)
+        drawlayout.addView(AutodrawClass)
 
         socket = SocketApplication.get()
         socket.connect()
@@ -53,8 +57,9 @@ class MainSubActivity : AppCompatActivity() {
                 val intent = Intent(this@MainSubActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
+            }else {
+                Toast.makeText(this, "오답이네요!", Toast.LENGTH_SHORT).show()
             }
-            Toast.makeText(applicationContext, "오답이네요!", Toast.LENGTH_SHORT).show()
         }
 
         if(SettingData.round > 5) {
@@ -104,19 +109,21 @@ class MainSubActivity : AppCompatActivity() {
     }
     fun result(win_or_lose: String){
         val dialog = EndDialog(this, win_or_lose, SettingData.myscore.toString(), SettingData.otherscore.toString())
+        var params = dialog.window?.attributes;
+        params?.width = 800
+        params?.height = 500
+        dialog.window?.attributes = params
         dialog.show()
     }
 
     var color = Emitter.Listener{ args ->
-        Thread {
-            drawClass.drawPaint!!.color = args[0].toString().toInt()
-        }
+        Thread { AutodrawClass.setColor(args[0].toString(), args[1].toString().toFloat()) }
     }
 
     var location = Emitter.Listener { args ->
         runOnUiThread{
-            drawClass.touchX = args[0].toString().toFloat()
-            drawClass.touchY= args[0].toString().toFloat()
+            AutodrawClass.touchX = args[0].toString().toFloat()
+            AutodrawClass.touchY= args[1].toString().toFloat()
         }
     }
 

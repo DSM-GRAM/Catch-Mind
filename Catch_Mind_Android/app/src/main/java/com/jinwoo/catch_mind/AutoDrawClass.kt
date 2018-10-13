@@ -6,8 +6,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.graphics.Bitmap
 import com.jinwoo.catch_mind.Application.SocketApplication
+import io.socket.emitter.Emitter
 
-class DrawClass(context: Context) : View(context) {
+
+class AutoDrawClass(context: Context) : View(context) {
 
     var socket: io.socket.client.Socket
 
@@ -25,6 +27,8 @@ class DrawClass(context: Context) : View(context) {
         setupDrawing()
         socket = SocketApplication.get()
         socket.connect()
+
+        socket.on("EVENT_Receiver", event)
     }
 
     fun setColor(color: String, Width: Float){
@@ -49,33 +53,35 @@ class DrawClass(context: Context) : View(context) {
     }
 
     override fun onDraw(canvas: Canvas) {
+
         canvas.drawBitmap(canvasBitmap, 0f, 0f, canvasPaint)
         canvas.drawPath(drawPath, drawPaint)
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        touchX = event.x
-        touchY = event.y
+    var event = Emitter.Listener{ args ->
+        touchX = args[0].toString().toFloat()
+        touchY = args[1].toString().toFloat()
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                socket.emit("EVENT_SENDER", touchX, touchY, "ACTION_DOWN")
+                socket.emit("ACTION_DOWN", touchX, touchY)
                 drawPath!!.moveTo(touchX, touchY)
             }
             MotionEvent.ACTION_MOVE -> {
-                socket.emit("EVENT_SENDER", touchX, touchY, "ACTION_MOVE")
+                socket.emit("ACTION_MOVE", touchX, touchY)
                 drawPath!!.lineTo(touchX, touchY)
             }
             MotionEvent.ACTION_UP -> {
-                socket.emit("EVENT_SENDER", touchX, touchY, "ACTION_UP")
+                socket.emit("ACTION_UP", touchX, touchY)
                 drawPath!!.lineTo(touchX, touchY)
                 drawCanvas!!.drawPath(drawPath, drawPaint)
                 drawPath!!.reset()
             }
-            else -> return false
+            else -> false
         }
 
         invalidate()
-        return true
+        true
     }
+
 }

@@ -1,5 +1,6 @@
 package com.jinwoo.catch_mind.Activity
 
+import android.app.ActionBar
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -25,10 +26,10 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var drawClass: DrawClass
 
-    var SettingData = SettingModel()
+    var SettingData = SettingModel
 
-    var timeCounter = 30
-    var timeMinute = 1
+    var timeCounter = 10
+    var timeMinute = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,18 +49,19 @@ class MainActivity : AppCompatActivity() {
 
         setData()
 
-        red_color.setOnClickListener { v -> colorClick(0xFF8585)}
-        pink_color.setOnClickListener { v -> colorClick(0xFF98C8) }
-        orange_color.setOnClickListener { v -> colorClick(0xFFCE85) }
-        yellow_color.setOnClickListener { v -> colorClick(0xFBFB8E) }
-        green_color.setOnClickListener { v -> colorClick(0x56E69E) }
-        yellow_green_color.setOnClickListener { v -> colorClick(0xA7FBB0) }
-        sky_color.setOnClickListener { v -> colorClick(0xABF9F4) }
-        black_color.setOnClickListener { v -> colorClick(0x000000) }
-        purple_color.setOnClickListener { v -> colorClick(0x9570FF) }
-        light_purple_color.setOnClickListener { v -> colorClick(0xA4A7FF) }
-        gray_color.setOnClickListener { v -> colorClick(0x757575) }
-        amethyst_color.setOnClickListener { v -> colorClick(0xD784FF) }
+        eraser.setOnClickListener{ v -> colorClick("#FFFFFF", 50f)}
+        red_color.setOnClickListener { v -> colorClick("#FF8585", 5f)}
+        pink_color.setOnClickListener { v -> colorClick("#FF98C8", 5f) }
+        orange_color.setOnClickListener { v -> colorClick("#FFCE85", 5f) }
+        yellow_color.setOnClickListener { v -> colorClick("#FBFB8E", 5f) }
+        green_color.setOnClickListener { v -> colorClick("#56E69E", 5f) }
+        yellow_green_color.setOnClickListener { v -> colorClick("#A7FBB0", 5f) }
+        sky_color.setOnClickListener { v -> colorClick("#ABF9F4", 5f) }
+        black_color.setOnClickListener { v -> colorClick("#000000", 5f) }
+        purple_color.setOnClickListener { v -> colorClick("#9570FF", 5f) }
+        light_purple_color.setOnClickListener { v -> colorClick("#A4A7FF", 5f) }
+        gray_color.setOnClickListener { v -> colorClick("#757575", 5f) }
+        amethyst_color.setOnClickListener { v -> colorClick("#D784FF", 5f) }
 
         if(SettingData.round > 5) {
             if (SettingData.myscore > SettingData.otherscore) {
@@ -83,10 +85,10 @@ class MainActivity : AppCompatActivity() {
         otherscore.setText(SettingData.otherscore.toString())
     }
 
-    fun colorClick(color: Int) {
+    fun colorClick(color: String, width: Float) {
         Log.e("선택", "레드!!!!")
-        socket.emit("color", color)
-        drawClass.setColor(color)
+        socket.emit("color", color, width)
+        drawClass.setColor(color, width)
     }
 
     fun timerStart(){
@@ -106,6 +108,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 SettingData.round += 1
+                Log.e("라운드 데이터", "${SettingData.round}")
                 val intent = Intent(this@MainActivity, MainSubActivity::class.java)
                 startActivity(intent)
                 finish()
