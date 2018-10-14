@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/close"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="15dp"/>
+
+    <TextView
+        android:id="@+id/win_or_lose"
+        android:layout_width="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toBottomOf="@id/close"
+        android:text="WIN!"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:textColor="#648CBA"
+        android:fontFamily="@font/nanumsquarebold"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/Qmyscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="40dp"
+        android:text="당신의 점수는?"
+        android:textSize="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/Qotherscore"
+        app:layout_constraintTop_toBottomOf="@id/win_or_lose" />
+
+    <TextView
+        android:id="@+id/Qotherscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:text="상대의 점수는?"
+        android:textSize="25dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/Qmyscore"
+        app:layout_constraintTop_toBottomOf="@id/win_or_lose" />
+
+    <TextView
+        android:id="@+id/Rmyscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="0"
+        android:textSize="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/Qotherscore"
+        app:layout_constraintTop_toBottomOf="@id/Qmyscore" />
+
+    <TextView
+        android:id="@+id/Rotherscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="0"
+        android:textSize="30dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/Qmyscore"
+        app:layout_constraintTop_toBottomOf="@id/Qotherscore" />
+
+    <TextView
+        android:id="@+id/game_close"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toBottomOf="@id/Rmyscore"
+        android:layout_marginTop="30dp"
+        android:text="GRAM"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:textColor="#648CBA"
+        android:fontFamily="@font/nanumsquarebold"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:gravity="center_horizontal"/>
+
+</android.support.constraint.ConstraintLayout>
