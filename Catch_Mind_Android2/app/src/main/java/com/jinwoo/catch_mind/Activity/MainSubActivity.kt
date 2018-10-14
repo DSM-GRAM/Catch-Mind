@@ -51,7 +51,7 @@ class MainSubActivity : AppCompatActivity() {
 
         submiting.setOnClickListener { v ->
             if(answer_edit.toString() == answer){
-                socket.emit("collect")
+                socket.emit("correct")
                 SettingData.round += 1
                 SettingData.myscore += 10
                 val intent = Intent(this@MainSubActivity, MainActivity::class.java)

@@ -17,7 +17,7 @@ class StartActivity : AppCompatActivity() {
         start_text = findViewById(R.id.touch_start)
 
         start_text.setOnClickListener { v ->
-            val intent= Intent(this, MainSubActivity::class.java)
+            val intent= Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
