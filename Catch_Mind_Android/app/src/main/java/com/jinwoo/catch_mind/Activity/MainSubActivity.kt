@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Toast
 import com.jinwoo.catch_mind.Application.SocketApplication
 import com.jinwoo.catch_mind.AutoDrawClass
@@ -25,8 +26,8 @@ class MainSubActivity : AppCompatActivity() {
     var SettingData = SettingModel
 
     var answer: String = "개구리"
-    var timeCounter = 10
-    var timeMinute = 0
+    var timeCounter = 30
+    var timeMinute = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,6 @@ class MainSubActivity : AppCompatActivity() {
         setData()
 
         socket.on("color", color)
-        socket.on("location", location)
 
         submiting.setOnClickListener { v ->
             if(answer_edit.toString() == answer){
@@ -109,22 +109,16 @@ class MainSubActivity : AppCompatActivity() {
     }
     fun result(win_or_lose: String){
         val dialog = EndDialog(this, win_or_lose, SettingData.myscore.toString(), SettingData.otherscore.toString())
-        var params = dialog.window?.attributes;
-        params?.width = 800
-        params?.height = 500
-        dialog.window?.attributes = params
+        var params: WindowManager.LayoutParams = dialog.window.attributes
+        params.width = WindowManager.LayoutParams.WRAP_CONTENT
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT
+        dialog.window.attributes = params
         dialog.show()
+        onStop()
     }
 
     var color = Emitter.Listener{ args ->
         Thread { AutodrawClass.setColor(args[0].toString(), args[1].toString().toFloat()) }
-    }
-
-    var location = Emitter.Listener { args ->
-        runOnUiThread{
-            AutodrawClass.touchX = args[0].toString().toFloat()
-            AutodrawClass.touchY= args[1].toString().toFloat()
-        }
     }
 
     var onConnect = Emitter.Listener { args ->

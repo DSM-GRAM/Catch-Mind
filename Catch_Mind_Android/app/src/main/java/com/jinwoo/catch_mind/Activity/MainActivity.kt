@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import com.jinwoo.catch_mind.*
 import com.jinwoo.catch_mind.Application.SocketApplication
 import com.jinwoo.catch_mind.Dialog.EndDialog
@@ -28,8 +29,8 @@ class MainActivity : AppCompatActivity() {
 
     var SettingData = SettingModel
 
-    var timeCounter = 10
-    var timeMinute = 0
+    var timeCounter = 30
+    var timeMinute = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,7 +119,12 @@ class MainActivity : AppCompatActivity() {
 
     fun result(win_or_lose: String){
         val dialog = EndDialog(this, win_or_lose, SettingData.myscore.toString(), SettingData.otherscore.toString())
+        var params: WindowManager.LayoutParams = dialog.window.attributes
+        params.width = WindowManager.LayoutParams.WRAP_CONTENT
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT
+        dialog.window.attributes = params
         dialog.show()
+        onStop()
     }
 
     var onConnect = Emitter.Listener { args ->

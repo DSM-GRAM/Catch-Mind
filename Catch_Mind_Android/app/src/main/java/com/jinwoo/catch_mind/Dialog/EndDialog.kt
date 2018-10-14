@@ -5,6 +5,10 @@ import android.content.Context
 import android.os.Bundle
 import com.jinwoo.catch_mind.R
 import kotlinx.android.synthetic.main.gg_dialog.*
+import android.support.v4.content.ContextCompat.startActivity
+import android.content.Intent
+
+
 
 class EndDialog(context: Context, result_text1: String, result_text2: String, result_text3: String): Dialog(context) {
     private val LAYOUT = R.layout.gg_dialog
@@ -25,5 +29,8 @@ class EndDialog(context: Context, result_text1: String, result_text2: String, re
         win_or_lose.setText(result_text1)
         Rmyscore.setText(result_text2)
         Rotherscore.setText(result_text3)
+        game_close.setOnClickListener { v ->
+            System.exit(0);
+        }
     }
 }
