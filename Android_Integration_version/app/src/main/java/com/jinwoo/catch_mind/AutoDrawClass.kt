@@ -12,7 +12,7 @@ import kotlin.math.floor
 
 class AutoDrawClass(context: Context) : View(context) {
 
-    var socket: io.socket.client.Socket
+    var socket = SocketApplication.get()
 
     val paintColor: Int = Color.parseColor("#000000")
 
@@ -24,8 +24,7 @@ class AutoDrawClass(context: Context) : View(context) {
 
     init {
         setupDrawing()
-        socket = SocketApplication.get()
-
+        socket.connect()
         Thread{
             socket.on("EVENT_Receiver", event)
         }

@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var socket : Socket
+    var socket = SocketApplication.get()
 
     lateinit var drawClass: DrawClass
 
@@ -36,14 +36,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        socket.connect()
+
         drawClass = DrawClass(this)
         drawlayout.addView(drawClass)
 
-        socket = SocketApplication.get()
-
-        socket.on("connect", onConnect)
-
-        socket.on("correct", correct)
+        Thread {
+            Log.e("단어 전달 성공", "fgdgfgfdgfdgdfgfdgdfgdfgdfg")
+            socket.on("connect", onConnect)
+            socket.on("correct", correct)
+        }
 
         timerStart()
 
@@ -97,13 +99,14 @@ class MainActivity : AppCompatActivity() {
                         timeCounter = 59
                         timeMinute--
                     }
-                    timer.setText("$timeMinute:$timeCounter")
+                    runOnUiThread{
+                        timer.setText("$timeMinute:$timeCounter")
+                    }
                     if (timeMinute == 0 && timeCounter == 0) {
-                        break;
+                        break
                     }
                 }
                 SettingData.round += 1
-                Log.e("라운드 데이터", "${SettingData.round}")
                 val intent = Intent(this@MainActivity, MainSubActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -128,7 +131,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     var correct = Emitter.Listener { args ->
-        runOnUiThread{
+        runOnUiThread {
             SettingData.round += 1
             SettingData.otherscore += 10
             val intent = Intent(this@MainActivity, MainSubActivity::class.java)

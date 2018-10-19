@@ -9,7 +9,7 @@ import com.jinwoo.catch_mind.Application.SocketApplication
 
 class DrawClass(context: Context) : View(context) {
 
-    var socket: io.socket.client.Socket
+    var socket = SocketApplication.get()
 
     val paintColor: Int = Color.parseColor("#000000")
     var touchX = 0f
@@ -23,7 +23,7 @@ class DrawClass(context: Context) : View(context) {
 
     init {
         setupDrawing()
-        socket = SocketApplication.get()
+        socket.connect()
     }
 
     fun setColor(color: String, Width: Float){

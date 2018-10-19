@@ -19,7 +19,7 @@ import java.util.*
 import kotlin.concurrent.schedule
 
 class MainSubActivity : AppCompatActivity() {
-    private lateinit var socket : Socket
+    var socket = SocketApplication.get()
 
     lateinit var AutodrawClass: AutoDrawClass
 
@@ -33,12 +33,12 @@ class MainSubActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_sub)
 
+        socket.connect()
+
         Log.e("라운드 데이터", "${SettingData.round}")
 
         AutodrawClass = AutoDrawClass(this)
         drawlayout.addView(AutodrawClass)
-
-        socket = SocketApplication.get()
 
         socket.on("connect", onConnect)
 
@@ -89,7 +89,9 @@ class MainSubActivity : AppCompatActivity() {
                         timeCounter = 59
                         timeMinute--
                     }
-                    timer.setText("$timeMinute:$timeCounter")
+                    runOnUiThread{
+                        timer.setText("$timeMinute:$timeCounter")
+                    }
                     if (timeMinute == 0 && timeCounter == 0) {
                         break
                     }
