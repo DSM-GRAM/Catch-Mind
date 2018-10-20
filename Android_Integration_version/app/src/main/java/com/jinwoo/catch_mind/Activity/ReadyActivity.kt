@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.app.ProgressDialog
+import android.app.Service
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import com.jinwoo.catch_mind.Application.SocketApplication
+import com.jinwoo.catch_mind.BindService
 import com.jinwoo.catch_mind.R
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
@@ -17,22 +19,24 @@ import io.socket.emitter.Emitter
 
 class ReadyActivity: AppCompatActivity() {
 
-    lateinit var socket: Socket
+    val socket = SocketApplication.socket
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ready)
 
-         Toast.makeText(this,"대기 중입니다.", Toast.LENGTH_SHORT)
-
-        socket = SocketApplication.get()
+        Toast.makeText(this,"대기 중입니다.", Toast.LENGTH_SHORT)
 
         socket.connect()
 
         socket.emit("ready")
 
-        runOnUiThread{
-            socket.on("all ready", completeReady)
-        }
+        socket.on("all ready", completeReady)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        socket.disconnect()
     }
 
     var completeReady = Emitter.Listener { args ->

@@ -5,14 +5,16 @@ import android.graphics.*
 import android.view.MotionEvent
 import android.view.View
 import android.graphics.Bitmap
+import android.util.Log
 import com.jinwoo.catch_mind.Application.SocketApplication
+import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlin.math.floor
 
 
 class AutoDrawClass(context: Context) : View(context) {
 
-    var socket = SocketApplication.get()
+    val socket: Socket = SocketApplication.socket
 
     val paintColor: Int = Color.parseColor("#000000")
 
@@ -24,7 +26,6 @@ class AutoDrawClass(context: Context) : View(context) {
 
     init {
         setupDrawing()
-        socket.connect()
         Thread{
             socket.on("EVENT_Receiver", event)
         }
@@ -62,6 +63,7 @@ class AutoDrawClass(context: Context) : View(context) {
     }
 
     fun Event(touchX: Float, touchY: Float, eventName: String?){
+        Log.e("fgdfgf", "$touchX, $touchY, $eventName")
         when (eventName) {
             "ACTION_DOWN" -> {
                 drawPath!!.moveTo(touchX, touchY)

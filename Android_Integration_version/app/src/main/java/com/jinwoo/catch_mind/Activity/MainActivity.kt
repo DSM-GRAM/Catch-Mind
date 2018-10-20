@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    var socket = SocketApplication.get()
+    val socket = SocketApplication.socket
 
     lateinit var drawClass: DrawClass
 
@@ -36,16 +36,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        socket.connect()
+        Log.e("연결됐나요?", "${socket.connected()}")
 
         drawClass = DrawClass(this)
         drawlayout.addView(drawClass)
 
-        Thread {
-            Log.e("단어 전달 성공", "fgdgfgfdgfdgdfgfdgdfgdfgdfg")
-            socket.on("connect", onConnect)
-            socket.on("correct", correct)
-        }
+        Log.e("단어 전달 성공", "fgdgfgfdgfdgdfgfdgdfgdfgdfg")
+        socket.on("onConnect", onConnect)
+        socket.on("correct", correct)
 
         timerStart()
 
@@ -125,6 +123,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     var onConnect = Emitter.Listener { args ->
+
+        Log.e("데이터", "ㄱㅃㄸㅂㅈㅇㅁㄴ")
         runOnUiThread {
             word.setText(args[0].toString())
         }

@@ -6,10 +6,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.graphics.Bitmap
 import com.jinwoo.catch_mind.Application.SocketApplication
+import io.socket.client.Socket
 
 class DrawClass(context: Context) : View(context) {
 
-    var socket = SocketApplication.get()
+    val socket: Socket = SocketApplication.socket
 
     val paintColor: Int = Color.parseColor("#000000")
     var touchX = 0f
@@ -23,7 +24,6 @@ class DrawClass(context: Context) : View(context) {
 
     init {
         setupDrawing()
-        socket.connect()
     }
 
     fun setColor(color: String, Width: Float){

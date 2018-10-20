@@ -15,7 +15,7 @@ class EndDialog(context: Context, result_text1: String, result_text2: String, re
     var result_text1: String
     var result_text2: String
     var result_text3: String
-    var socket = SocketApplication.get()
+    val socket = SocketApplication.socket
 
     init {
         this.result_text1 = result_text1
